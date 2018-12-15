@@ -1,0 +1,12 @@
+{
+  "name": "indecision",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Manuel Hutter <manuel@hutter.io> (https://hutter.io/)",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1"
+  }
+}
