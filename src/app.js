@@ -11,8 +11,25 @@ class Person {
   }
 }
 
-const me = new Person('Manuel Hutter', 30)
+class Student extends Person {
+  constructor (name, age, major) {
+    super(name, age)
+    this.major = major
+  }
+  hasMajor () {
+    return !!this.major
+  }
+  getDescription () {
+    let description = super.getDescription()
+    if (this.hasMajor()) {
+      description += ` Their major is ${this.major}`
+    }
+    return description
+  }
+}
+
+const me = new Student('Manuel Hutter', 30, 'CompSci')
 console.log(me.getDescription())
 
-const other = new Person()
+const other = new Student()
 console.log(other.getDescription())
