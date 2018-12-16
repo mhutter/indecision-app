@@ -1,31 +1,8 @@
 /* global ReactDOM */
-
-const multiplier = {
-  numbers: [1, 2, 42, 88],
-  multiplyBy: 12,
-  multiply () {
-    return this.numbers.map(n => n * this.multiplyBy)
-  }
-}
-
-console.log(multiplier.multiply())
-
 const app = {
   title: 'Indecision',
   subtitle: 'Put your life in the hands of a computer',
   options: ['One', 'Two']
-}
-
-const user = {
-  name: 'Manuel',
-  age: 30,
-  location: 'Seattle'
-}
-
-function getLocation (location) {
-  if (location) {
-    return <div><dt>Location</dt><dd>{location}</dd></div>
-  }
 }
 
 const template =
@@ -33,11 +10,34 @@ const template =
     <h1>{app.title}</h1>
     {app.subtitle && <p>{app.subtitle}</p>}
     <p>{(app.options || []).length > 0 ? 'Here are your options:' : 'No options'}</p>
-    <dt>Name</dt><dd>{user.name || 'Anonymous'}</dd>
-    {user.age >= 18 && <div><dt>Age</dt><dd>{user.age}</dd></div>}
-    {getLocation(user.location)}
   </div>
 
-const appRoot = document.getElementById('app')
+let count = 0
 
-ReactDOM.render(template, appRoot)
+const addOne = () => {
+  count++
+  renderCounterApp()
+}
+const minusOne = () => {
+  count--
+  renderCounterApp()
+}
+const reset = () => {
+  count = 0
+  renderCounterApp()
+}
+
+const renderCounterApp = () => {
+  const templateTwo = (
+    <div className='two'>
+      <h1>Count: {count}</h1>
+      <button onClick={addOne}>+1</button>
+      <button onClick={minusOne}>-1</button>
+      <button onClick={reset}>reset</button>
+    </div>
+  )
+  ReactDOM.render(templateTwo, appRoot)
+}
+
+const appRoot = document.getElementById('app')
+renderCounterApp()
