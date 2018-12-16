@@ -1,43 +1,51 @@
 /* global ReactDOM */
+const appRoot = document.getElementById('app')
 const app = {
   title: 'Indecision',
   subtitle: 'Put your life in the hands of a computer',
-  options: ['One', 'Two']
+  options: ['One', 'Two', 'Three']
 }
 
-const template =
-  <div>
-    <h1>{app.title}</h1>
-    {app.subtitle && <p>{app.subtitle}</p>}
-    <p>{(app.options || []).length > 0 ? 'Here are your options:' : 'No options'}</p>
-  </div>
-
-let count = 0
-
-const addOne = () => {
-  count++
-  renderCounterApp()
-}
-const minusOne = () => {
-  count--
-  renderCounterApp()
-}
-const reset = () => {
-  count = 0
-  renderCounterApp()
-}
-
-const renderCounterApp = () => {
-  const templateTwo = (
-    <div className='two'>
-      <h1>Count: {count}</h1>
-      <button onClick={addOne}>+1</button>
-      <button onClick={minusOne}>-1</button>
-      <button onClick={reset}>reset</button>
+const render = () => {
+  const template =
+    <div>
+      <h1>{app.title}</h1>
+      {app.subtitle && <p>{app.subtitle}</p>}
+      <p><button onClick={onRemoveAll}>Remove All</button></p>
+      <p>{(app.options || []).length > 0 ? 'Here are your options:' : 'No options'}</p>
+      <button disabled={app.options.length < 1} onClick={onMakeDecision}>What shoud  I do?</button>
+      {((app.options || []).length > 0) && <ul>
+        {app.options.map(i => <li key={i}>{i}</li>)}
+      </ul>
+      }
+      <form onSubmit={onAddOption}>
+        <input type='text' name='option' />
+        <button>Add Option</button>
+      </form>
     </div>
-  )
-  ReactDOM.render(templateTwo, appRoot)
+
+  ReactDOM.render(template, appRoot)
 }
 
-const appRoot = document.getElementById('app')
-renderCounterApp()
+const onAddOption = e => {
+  e.preventDefault()
+  const option = e.target.elements.option.value
+  if (option) {
+    app.options.push(option)
+    e.target.elements.option.value = ''
+    render()
+  }
+}
+
+const onRemoveAll = e => {
+  app.options = []
+  render()
+}
+
+const onMakeDecision = e => {
+  const randomNum = Math.floor(Math.random() * app.options.length)
+  const selected = app.options[randomNum]
+  alert(selected)
+}
+
+render()
