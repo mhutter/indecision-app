@@ -54,51 +54,39 @@ class IndecisionApp extends React.Component {
   }
 }
 
-class Header extends React.Component {
-  render () {
-    return (
-      <header>
-        <h1>{this.props.title}</h1>
-        <h2>{this.props.subtitle}</h2>
-      </header>
-    )
-  }
-}
+const Header = props => (
+  <header>
+    <h1>{props.title}</h1>
+    <h2>{props.subtitle}</h2>
+  </header>
+)
 
 const Option = props => <li>{props.description}</li>
 
-class Options extends React.Component {
-  render () {
-    const options = this.props.options
-    if (!options) {
-      return
-    }
-
-    return (
-      <div>
-        <button onClick={this.props.onRemoveAll}>Remove All</button>
-        <ul>
-          {options.map(i => <Option key={i} description={i} />)}
-        </ul>
-      </div>
-    )
+const Options = props => {
+  if (!props.options) {
+    return
   }
+
+  return (
+    <div>
+      <button onClick={props.onRemoveAll}>Remove All</button>
+      <ul>
+        {props.options.map(i => <Option key={i} description={i} />)}
+      </ul>
+    </div>
+  )
 }
 
-class Action extends React.Component {
-  render () {
-    return (
-      <div>
-        <button
-          onClick={this.props.onPick}
-          disabled={!this.props.hasOptions}
-        >
-          What shoud I do?
-        </button>
-      </div>
-    )
-  }
-}
+const Action = props => (
+  <div>
+    <button
+      onClick={props.onPick}
+      disabled={!props.hasOptions}>
+      What shoud I do?
+    </button>
+  </div>
+)
 
 class AddOption extends React.Component {
   constructor (props) {
