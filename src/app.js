@@ -1,4 +1,4 @@
-/* global alert, React, ReactDOM */
+/* global alert, React, ReactDOM, localStorage */
 class IndecisionApp extends React.Component {
   constructor (props) {
     super(props)
@@ -10,6 +10,23 @@ class IndecisionApp extends React.Component {
 
     this.state = {
       options: props.options
+    }
+  }
+
+  componentDidMount () {
+    try {
+      const json = localStorage.getItem('indecision:options')
+      const options = JSON.parse(json)
+      if (options) {
+        this.setState(() => ({ options }))
+      }
+    } catch (e) {}
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    const {options} = this.state
+    if (prevState.options.length !== options.length) {
+      localStorage.setItem('indecision:options', JSON.stringify(options))
     }
   }
 
