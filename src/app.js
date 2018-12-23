@@ -5,6 +5,7 @@ class IndecisionApp extends React.Component {
 
     this.handleRemoveAll = this.handleRemoveAll.bind(this)
     this.handleAddOption = this.handleAddOption.bind(this)
+    this.handleDeleteOption = this.handleDeleteOption.bind(this)
     this.handlePick = this.handlePick.bind(this)
 
     this.state = {
@@ -26,6 +27,12 @@ class IndecisionApp extends React.Component {
     this.setState(prevState => ({ options: prevState.options.concat(option) }))
   }
 
+  handleDeleteOption (option) {
+    this.setState(prevState => ({
+      options: prevState.options.filter(e => e !== option)
+    }))
+  }
+
   handlePick () {
     const options = this.state.options
     const id = Math.floor(Math.random() * options.length)
@@ -41,6 +48,7 @@ class IndecisionApp extends React.Component {
           hasOptions={this.state.options.length > 0} />
         <Options
           onRemoveAll={this.handleRemoveAll}
+          onDeleteOption={this.handleDeleteOption}
           options={this.state.options} />
         <AddOption onAddOption={this.handleAddOption} />
       </div>
@@ -61,7 +69,14 @@ Header.defaultProps = {
   title: 'Indecision'
 }
 
-const Option = props => <li>{props.description}</li>
+const Option = props => (
+  <li>
+    {props.description}
+    <button onClick={() => props.onDelete(props.description)}>
+      remove
+    </button>
+  </li>
+)
 
 const Options = props => {
   if (!props.options) {
@@ -72,7 +87,12 @@ const Options = props => {
     <div>
       <button onClick={props.onRemoveAll}>Remove All</button>
       <ul>
-        {props.options.map(i => <Option key={i} description={i} />)}
+        {props.options.map(i => (
+          <Option
+            key={i}
+            description={i}
+            onDelete={props.onDeleteOption} />
+        ))}
       </ul>
     </div>
   )
