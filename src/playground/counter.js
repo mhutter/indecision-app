@@ -1,4 +1,4 @@
-/* global React, ReactDOM */
+/* global React, ReactDOM, localStorage */
 
 class Counter extends React.Component {
   constructor (props) {
@@ -13,6 +13,21 @@ class Counter extends React.Component {
     }
   }
 
+  componentDidMount () {
+    const data = localStorage.getItem('counter:count')
+    const count = parseInt(data, 10)
+
+    if (!isNaN(count)) {
+      this.setState(() => ({ count }))
+    }
+  }
+  componentDidUpdate (prevProps, prevState) {
+    const {count} = this.state
+    if (prevState.count != count) {
+      localStorage.setItem('counter:count', count)
+    }
+  }
+
   handlePlusOne (e) {
     this.setState(prevState => ({ count: prevState.count + 1 }))
   }
@@ -24,7 +39,6 @@ class Counter extends React.Component {
   }
 
   render () {
-    console.log('rendering')
     return (
       <div className='Counter'>
         <h1>Counter: {this.state.count}</h1>
