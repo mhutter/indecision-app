@@ -7,17 +7,8 @@ import Header from './Header'
 import Options from './Options'
 
 class IndecisionApp extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.handleRemoveAll = this.handleRemoveAll.bind(this)
-    this.handleAddOption = this.handleAddOption.bind(this)
-    this.handleDeleteOption = this.handleDeleteOption.bind(this)
-    this.handlePick = this.handlePick.bind(this)
-
-    this.state = {
-      options: props.options
-    }
+  state = {
+    options: this.props.options
   }
 
   componentDidMount () {
@@ -37,11 +28,11 @@ class IndecisionApp extends React.Component {
     }
   }
 
-  handleRemoveAll () {
+  handleRemoveAll = () => {
     this.setState(() => ({ options: [] }))
   }
 
-  handleAddOption (option) {
+  handleAddOption = option => {
     if (!option) {
       return 'Enter valid value to add item'
     } else if (this.state.options.indexOf(option) >= 0) {
@@ -51,13 +42,13 @@ class IndecisionApp extends React.Component {
     this.setState(prevState => ({ options: prevState.options.concat(option) }))
   }
 
-  handleDeleteOption (option) {
+  handleDeleteOption = option => {
     this.setState(prevState => ({
       options: prevState.options.filter(e => e !== option)
     }))
   }
 
-  handlePick () {
+  handlePick = () => {
     const options = this.state.options
     const id = Math.floor(Math.random() * options.length)
     alert(options[id])
