@@ -6,7 +6,7 @@
   border: none;
   border-bottom: .6rem solid darken($purple, 10%);
   width: 100%;
-  margin-bottom: $xl-size;
+  margin-bottom: $m-size;
   padding: 2.4rem;
 }
 .big-button:disabled {
@@ -27,4 +27,10 @@
   border: none;
   color: $off-white;
   padding: 0;
+}
+
+@media (min-width: $desktop-breakpoint) {
+  .big-button {
+    margin-bottom: $xl-size;
+  }
 }
