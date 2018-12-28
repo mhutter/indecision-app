@@ -1,5 +1,5 @@
 /* global localStorage */
-import React from 'react'
+import React, { Component } from 'react'
 
 import Action from './Action'
 import AddOption from './AddOption'
@@ -7,7 +7,7 @@ import Header from './Header'
 import Options from './Options'
 import OptionModal from './OptionModal';
 
-class IndecisionApp extends React.Component {
+class IndecisionApp extends Component {
   state = {
     options: this.props.options,
     selectedOption: undefined
